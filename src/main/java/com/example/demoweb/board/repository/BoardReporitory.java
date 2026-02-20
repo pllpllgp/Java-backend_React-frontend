@@ -1,8 +1,6 @@
 package com.example.demoweb.board.repository;
 
-import com.example.demoweb.board.dto.BoardDTO;
 import com.example.demoweb.board.entity.BoardEntiry;
-import com.example.demoweb.login.entity.LoginEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
