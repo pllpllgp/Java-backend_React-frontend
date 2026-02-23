@@ -38,7 +38,7 @@ const BoardList = () => {
     }, [category]);
 
     const handleWrite = () => {
-        navigate(`/board/${category}/write`);
+        navigate(`/board/${category}/form`);
     };
 
     const handleDetail = (idx: number) => {

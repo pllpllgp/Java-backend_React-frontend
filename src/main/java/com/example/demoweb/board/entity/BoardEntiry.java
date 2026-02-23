@@ -25,12 +25,15 @@ public class BoardEntiry {
     private String content;
 
     @Column(nullable = false)
+    private String id;
+
+    @Column(nullable = false)
     private String writer;
 
     @Column(nullable = false)
     private String regDate;
 
     @Column(nullable = false)
-    private String viewCount;
+    private int viewCount;
 
 }

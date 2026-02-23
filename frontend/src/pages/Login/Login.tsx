@@ -2,13 +2,31 @@ import {useState} from 'react';
 import axios from 'axios';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
+import {useAuthStore} from '../../store/useAuthStore';
+
+interface UserDTO {
+    id: string;
+    name: string;
+    nick: string;
+
+}
 
 const Login = () => {
     const navigate = useNavigate();
     const [loginData, setLoginData] = useState({
         id: '',
         password: '',
+
     });
+
+    const [userForm, setUserForm] = useState<UserDTO> ({
+        id: '',
+        name: '',
+        nick: '',
+
+    });
+
+    const login = useAuthStore((state) => state.login);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginData({
@@ -21,12 +39,20 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/api/login', loginData);
+            const res = await axios.post('http://localhost:8080/api/login', loginData);
+            if(res.data.id != null) {
+                login({
+                    id: res.data.id,
+                    name: res.data.name,
+                    nick: res.data.nick,
 
-            if(response.data.success) {
+                });
+
                 navigate('/main');
+
             } else {
                 alert('로그인 실패');
+
             }
 
         } catch(error) {

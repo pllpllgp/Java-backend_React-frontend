@@ -18,11 +18,6 @@ public class LoginController {
 
     @PostMapping("/signup")
     public Map<String, Object> signup(@RequestBody LoginDTO loginDto) {
-        System.out.println("id:::::::::::::::::::" + loginDto.getId());
-        System.out.println("name:::::::::::::::::::" + loginDto.getName());
-        System.out.println("password:::::::::::::::::::" + loginDto.getPassword());
-        System.out.println("nick:::::::::::::::::::" + loginDto.getNick());
-
         boolean result = loginService.signUp(loginDto);
 
         Map<String, Object> response = new HashMap<>();
@@ -33,23 +28,18 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody LoginDTO loginDto) {
+    public LoginDTO login(@RequestBody LoginDTO loginDto) {
         LoginEntity loginInfo = loginService.loginCheck(loginDto.getId(), loginDto.getPassword());
 
-        Map<String, Object> response = new HashMap<>();
+        LoginDTO dto = new LoginDTO();
 
         if(loginInfo.getId() != null) {
-            response.put("success", true);
-            response.put("userDto", loginDto);
-            response.put("message", "로그인 성공");
-
-        } else {
-            response.put("success", false);
-            response.put("userDto", loginDto);
-            response.put("message", "로그인 실패");
+            dto.setId(loginInfo.getId());
+            dto.setName(loginInfo.getName());
+            dto.setNick(loginInfo.getNick());
 
         }
 
-        return response;
+        return dto;
     }
 }
