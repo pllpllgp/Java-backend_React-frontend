@@ -4,12 +4,11 @@ import com.example.demoweb.board.dto.BoardDTO;
 import com.example.demoweb.board.entity.BoardEntiry;
 import com.example.demoweb.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/board")
@@ -25,6 +24,22 @@ public class BoardController {
     @GetMapping("/{category}/list")
     public List<BoardDTO> getBoardlist(@PathVariable String category) {
         return boardService.getBoardlist(category);
+    }
+
+    @PostMapping("/{category}/write")
+    public Map<String, Object> getBoardWrite(@PathVariable String category, @RequestBody BoardDTO dto) {
+        boolean result = boardService.setBoardWrite(category, dto);
+
+        Map<String, Object> res = new HashMap<>();
+        if(result) {
+            res.put("success", true);
+
+        } else {
+            res.put("success", false);
+
+        }
+
+        return res;
     }
 
     @GetMapping("/{category}/detail/{idx}")
