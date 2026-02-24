@@ -7,6 +7,7 @@ import com.example.demoweb.login.dto.LoginDTO;
 import com.example.demoweb.login.entity.LoginEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -72,6 +73,22 @@ public class BoardService {
         entiry.setViewCount(0);
 
         boardReporitory.save(entiry);
+
+        return true;
+    }
+
+    @Transactional
+    public boolean setBoardModify(String category, int idx, BoardDTO dto) {
+        Optional<BoardEntiry> boardOpt = boardReporitory.findByCategoryAndIdx(category, idx);
+
+        if(boardOpt.isEmpty()) {
+            return false;
+        }
+
+        BoardEntiry boardEntiry = boardOpt.get();
+
+        boardEntiry.setTitle(dto.getTitle());
+        boardEntiry.setContent(dto.getContent());
 
         return true;
     }

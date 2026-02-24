@@ -5,24 +5,50 @@ import {useParams, useNavigate} from "react-router-dom";
 import {useAuthStore} from "../../store/useAuthStore";
 
 interface BoardDTO {
-    title: string;
     id: string;
-    writer: string;
+    title: string;
     content: string;
+    writer: string;
+    regDate: string;
+    viewCount: number;
 }
 
 const BoardForm = () => {
     const user = useAuthStore((state) => state.user);
 
-    const {category} = useParams();
+    const {category, idx} = useParams();
     const navigate = useNavigate();
 
+    const isEditMode = !!idx;
+
     const [boardForm, setBoarForm] = useState<BoardDTO>({
-        title: '',
         id: '',
-        writer: '',
+        title: '',
         content: '',
+        writer: '',
+        regDate: '',
+        viewCount: 0,
+
     });
+
+    useEffect(() => {
+        if(isEditMode) {
+            const fetchBoardDetail = async () => {
+                try {
+                    const res = await axios.get(`http://localhost:8080/api/board/${category}/detail/${idx}`);
+
+                    setBoarForm(res.data);
+                    console.log(res.data.title);
+                } catch(error) {
+                    console.error("게시글 상세 실패:", error);
+
+                }
+            };
+
+            fetchBoardDetail();
+
+        }
+    }, [category, idx]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         setBoarForm( {
@@ -36,15 +62,26 @@ const BoardForm = () => {
 
         try{
             const postData = {
+                id: user?.id,
                 title: boardForm.title,
                 content: boardForm.content,
-                id: user?.id,
                 writer: user?.nick,
             }
 
-            const res = await axios.post(`http://localhost:8080/api/board/${category}/write`, postData);
+            let result = false;
 
-            if(res.data.success) {
+            if(isEditMode) {
+                const res = await axios.post(`http://localhost:8080/api/board/${category}/modify/${idx}`, postData);
+                result = res.data.success;
+
+            } else {
+                const res = await axios.post(`http://localhost:8080/api/board/${category}/write`, postData);
+                result = res.data.success;
+
+            }
+
+
+            if(result) {
                 navigate(`/board/${category}/list`);
             }
 
@@ -66,7 +103,8 @@ const BoardForm = () => {
                                name = "title"
                                onChange={handleChange}
                                style={{width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px'}}
-                               placeholder="제목을 입력하세요"/>
+                               placeholder="제목을 입력하세요"
+                               value={boardForm.title}/>
                     </div>
                     <div style={{marginBottom: '15px'}}>
                         <label style={{display: 'block', marginBottom: '5px'}}>내용</label>
@@ -77,8 +115,9 @@ const BoardForm = () => {
                             height: '300px',
                             padding: '10px',
                             border: '1px solid #ccc',
-                            borderRadius: '4px'
-                        }} placeholder="내용을 입력하세요"/>
+                            borderRadius: '4px'}}
+                            placeholder="내용을 입력하세요"
+                            value={boardForm.content}/>
                     </div>
                     <div style={{textAlign: 'right'}}>
                         <button style={{

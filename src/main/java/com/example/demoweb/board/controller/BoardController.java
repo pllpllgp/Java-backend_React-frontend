@@ -42,6 +42,24 @@ public class BoardController {
         return res;
     }
 
+    @PostMapping("/{category}/modify/{idx}")
+    public Map<String, Object> getBoarModify(@PathVariable String category, @PathVariable int idx, @RequestBody BoardDTO dto) {
+        System.out.println("category::::"+category);
+        System.out.println("idx::::"+idx);
+        boolean result = boardService.setBoardModify(category, idx, dto);
+
+        Map<String, Object> res = new HashMap<>();
+        if(result) {
+            res.put("success", true);
+
+        } else {
+            res.put("success", false);
+
+        }
+
+        return res;
+    }
+
     @GetMapping("/{category}/detail/{idx}")
     public BoardDTO getBoardDetail(@PathVariable String category, @PathVariable int idx) {
         BoardEntiry entity = boardService.getBoardDetail(category, idx);
@@ -50,10 +68,12 @@ public class BoardController {
 
         if(entity.getTitle() != null) {
             dto.setIdx(entity.getIdx());
+            dto.setId(entity.getId());
             dto.setTitle(entity.getTitle());
             dto.setContent(entity.getContent());
             dto.setWriter(entity.getWriter());
             dto.setRegDate(entity.getRegDate());
+            dto.setViewCount(entity.getViewCount());
 
         }
 

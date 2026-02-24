@@ -20,6 +20,7 @@ export const router = createBrowserRouter([
             {path: "board/:category/list", element: <BoarList /> },
             {path: "board/:category/form", element: <BoarForm /> },
             {path: "board/:category/detail/:idx", element: <BoarView /> },
+            {path: "board/:category/modify/:idx", element: <BoarForm /> },
         ],
     },
 ]);

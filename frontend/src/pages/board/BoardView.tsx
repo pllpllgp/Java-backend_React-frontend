@@ -38,6 +38,10 @@ const BoardView = () => {
         return <div style={{ padding: '30px', textAlign: 'center' }}>데이터를 불러오는 중입니다...</div>;
     }
 
+    const handleModify = () => {
+        navigate(`/board/${category}/modify/${idx}`);
+    };
+
     return (
         <div style={{maxWidth: '800px', margin: '0 auto', border: '1px solid #eee', padding: '30px'}}>
             <h1 style={{borderBottom: '1px solid #ddd', paddingBottom: '10px'}}>
@@ -51,7 +55,7 @@ const BoardView = () => {
             </div>
             <div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
                 <button style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
-                <button style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정
+                <button onClick={handleModify} style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정
                 </button>
                 <button style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>
             </div>
