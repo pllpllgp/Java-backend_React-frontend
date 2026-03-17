@@ -99,6 +99,8 @@ const Login = () => {
                 <ul style={{listStyle: 'none', padding: 0}}>
                     <li>Backend: Java (Spring Boot)</li>
                     <li>Frontend: React + TypeScript</li>
+                    <li>Database: PostgreSQL</li>
+                    <li>ORM: JPA (Hibernate)</li>
                     <li>Routing: React Router v6 (Data API)</li>
                     <li>Security: SHA-512 Hash</li>
                 </ul>
