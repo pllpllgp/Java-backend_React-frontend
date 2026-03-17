@@ -15,7 +15,7 @@ public class LoginService {
     private LoginRepository loginRepository;
 
     public boolean signUp(LoginDTO dto) {
-        if(loginRepository.findById(dto.getId()).isPresent()) {
+        if(loginRepository.findByIdAndPassword(dto.getId(), dto.getPassword()).isPresent()) {
             return false;
         };
 

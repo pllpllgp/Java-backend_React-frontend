@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="boards")
+@Table(name="boards", schema="board")
 public class BoardEntiry {
     @Id
     private int idx;

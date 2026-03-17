@@ -40,7 +40,7 @@ const Login = () => {
 
         try {
             const res = await axios.post('http://localhost:8080/api/login', loginData);
-            if(res.data.id != null) {
+            if(res.data.id) {
                 login({
                     id: res.data.id,
                     name: res.data.name,
@@ -61,26 +61,41 @@ const Login = () => {
         }
     }
 
+    const handleSignup = () => {
+        navigate('/signup');
+    }
+
     return (
         <div style={{maxWidth: '400px', margin: '50px auto', textAlign: 'center'}}>
             <h2>로그인</h2>
             <form onSubmit={handleSubmit}>
                 <div style={{marginBottom: '10px'}}>
                     <input name="id"
-                        placeholder="아이디"
-                        onChange={handleChange}
-                        style={{width: '100%', padding: '10px', boxSizing: 'border-box'}}
+                           placeholder="아이디"
+                           onChange={handleChange}
+                           style={{width: '100%', padding: '10px', boxSizing: 'border-box'}}
                     />
                 </div>
                 <div style={{marginBottom: '20px'}}>
                     <input name="password"
-                        type="password"
-                        placeholder="비밀번호"
-                        onChange={handleChange}
-                        style={{width: '100%', padding: '10px', boxSizing: 'border-box'}}
+                           type="password"
+                           placeholder="비밀번호"
+                           onChange={handleChange}
+                           style={{width: '100%', padding: '10px', boxSizing: 'border-box'}}
                     />
                 </div>
                 <button type="submit" style={{
+                    width: '100%',
+                    padding: '10px',
+                    backgroundColor: '#000000',
+                    color: 'white',
+                    border: 'none',
+                    boxSizing: 'border-box'
+                }}>
+                    로그인
+                </button>
+                <button type="button" onClick={() => handleSignup()}
+                    style={{
                     width: '100%',
                     padding: '10px',
                     backgroundColor: '#007bff',
@@ -88,7 +103,7 @@ const Login = () => {
                     border: 'none',
                     boxSizing: 'border-box'
                 }}>
-                    로그인
+                    회원가입
                 </button>
             </form>
 

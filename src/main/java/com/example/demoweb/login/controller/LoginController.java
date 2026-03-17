@@ -4,6 +4,7 @@ import com.example.demoweb.login.dto.LoginDTO;
 import com.example.demoweb.login.entity.LoginEntity;
 import com.example.demoweb.login.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class LoginController {
 
         LoginDTO dto = new LoginDTO();
 
-        if(loginInfo.getId() != null) {
+        if(StringUtils.hasText(loginInfo.getId())) {
             dto.setId(loginInfo.getId());
             dto.setName(loginInfo.getName());
             dto.setNick(loginInfo.getNick());
