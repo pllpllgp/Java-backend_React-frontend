@@ -19,10 +19,17 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .requestMatchers("/api/login", "/api/signup").permitAll()
-                    .requestMatchers("/", "/index.html", "/static/**",
-                            "/*.js", "/*.css", "/*.ico", "/*.png").permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS,
+                                   "/**").permitAll()
+                    .requestMatchers("/api/login",
+                                     "/api/signup").permitAll()
+                    .requestMatchers("/",
+                                     "/index.html",
+                                     "/static/**",
+                                     "/*.js",
+                                     "/*.css",
+                                     "/*.ico",
+                                     "/*.png").permitAll()
                     .requestMatchers("/api/**").authenticated()
                     .anyRequest().permitAll())
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
