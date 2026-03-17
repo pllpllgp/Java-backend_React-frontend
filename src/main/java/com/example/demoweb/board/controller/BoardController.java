@@ -1,7 +1,7 @@
 package com.example.demoweb.board.controller;
 
 import com.example.demoweb.board.dto.BoardDTO;
-import com.example.demoweb.board.entity.BoardEntiry;
+import com.example.demoweb.board.entity.BoardEntity;
 import com.example.demoweb.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +43,7 @@ public class BoardController {
     }
 
     @PostMapping("/{category}/modify/{idx}")
-    public Map<String, Object> getBoarModify(@PathVariable String category, @PathVariable int idx, @RequestBody BoardDTO dto) {
-        System.out.println("category::::"+category);
-        System.out.println("idx::::"+idx);
+    public Map<String, Object> getBoardModify(@PathVariable String category, @PathVariable int idx, @RequestBody BoardDTO dto) {
         boolean result = boardService.setBoardModify(category, idx, dto);
 
         Map<String, Object> res = new HashMap<>();
@@ -62,7 +60,7 @@ public class BoardController {
 
     @GetMapping("/{category}/detail/{idx}")
     public BoardDTO getBoardDetail(@PathVariable String category, @PathVariable int idx) {
-        BoardEntiry entity = boardService.getBoardDetail(category, idx);
+        BoardEntity entity = boardService.getBoardDetail(category, idx);
 
         BoardDTO dto = new BoardDTO();
 

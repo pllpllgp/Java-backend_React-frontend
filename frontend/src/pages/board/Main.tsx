@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from 'axios';
+import axios from '../../api/axiosInstance';
 import {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 
@@ -11,7 +11,7 @@ interface BoardDTO {
     viewCount: number;
 }
 
-const BoardList = () => {
+const Main = () => {
     const navigate = useNavigate();
 
     const [gameBoard, setGameBoard] = useState<BoardDTO[]>([]);
@@ -22,10 +22,10 @@ const BoardList = () => {
     useEffect(() => {
         const fetchBoardList = async() => {
             const [gameRes, movieRes, musicRes, noticeRes] = await Promise.all([
-                axios.get(`http://localhost:8080/api/board/game/top5`).catch(() => ({data: []})),
-                axios.get(`http://localhost:8080/api/board/movie/top5`).catch(() => ({data: []})),
-                axios.get(`http://localhost:8080/api/board/music/top5`).catch(() => ({data: []})),
-                axios.get(`http://localhost:8080/api/board/notice/top5`).catch(() => ({data: []})),
+                axios.get(`/api/board/game/top5`).catch(() => ({data: []})),
+                axios.get(`/api/board/movie/top5`).catch(() => ({data: []})),
+                axios.get(`/api/board/music/top5`).catch(() => ({data: []})),
+                axios.get(`/api/board/notice/top5`).catch(() => ({data: []})),
             ]);
 
             setGameBoard(gameRes.data);
@@ -110,4 +110,4 @@ const BoardList = () => {
     );
 };
 
-export default BoardList;
+export default Main;

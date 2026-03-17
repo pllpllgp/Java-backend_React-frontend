@@ -10,4 +10,5 @@ public class LoginDTO {
     private String name;
     private String password;
     private String nick;
+    private String token;
 }

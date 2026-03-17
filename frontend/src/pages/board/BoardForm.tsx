@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {useAuthStore} from "../../store/useAuthStore";
@@ -35,10 +35,9 @@ const BoardForm = () => {
         if(isEditMode) {
             const fetchBoardDetail = async () => {
                 try {
-                    const res = await axios.get(`http://localhost:8080/api/board/${category}/detail/${idx}`);
-
+                    const res = await axios.get(`/api/board/${category}/detail/${idx}`);
                     setBoarForm(res.data);
-                    console.log(res.data.title);
+
                 } catch(error) {
                     console.error("게시글 상세 실패:", error);
 
@@ -71,11 +70,11 @@ const BoardForm = () => {
             let result = false;
 
             if(isEditMode) {
-                const res = await axios.post(`http://localhost:8080/api/board/${category}/modify/${idx}`, postData);
+                const res = await axios.post(`/api/board/${category}/modify/${idx}`, postData);
                 result = res.data.success;
 
             } else {
-                const res = await axios.post(`http://localhost:8080/api/board/${category}/write`, postData);
+                const res = await axios.post(`/api/board/${category}/write`, postData);
                 result = res.data.success;
 
             }
@@ -120,7 +119,8 @@ const BoardForm = () => {
                             value={boardForm.content}/>
                     </div>
                     <div style={{textAlign: 'right'}}>
-                        <button style={{
+                        <button type="button" onClick={() => navigate(-1)}
+                            style={{
                             padding: '10px 20px',
                             marginRight: '10px',
                             background: '#6c757d',
@@ -129,7 +129,8 @@ const BoardForm = () => {
                             borderRadius: '4px'
                         }}>취소
                         </button>
-                        <button style={{
+                        <button type="submit"
+                            style={{
                             padding: '10px 20px',
                             background: '#28a745',
                             color: '#fff',

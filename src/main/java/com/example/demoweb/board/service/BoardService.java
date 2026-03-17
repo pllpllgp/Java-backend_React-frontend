@@ -1,10 +1,8 @@
 package com.example.demoweb.board.service;
 
 import com.example.demoweb.board.dto.BoardDTO;
-import com.example.demoweb.board.entity.BoardEntiry;
-import com.example.demoweb.board.repository.BoardReporitory;
-import com.example.demoweb.login.dto.LoginDTO;
-import com.example.demoweb.login.entity.LoginEntity;
+import com.example.demoweb.board.entity.BoardEntity;
+import com.example.demoweb.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +17,12 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     @Autowired
-    private BoardReporitory boardReporitory;
+    private BoardRepository boardRepository;
 
     public List<BoardDTO> getBoardTop5(String category) {
-        List<BoardEntiry> boardEntiryList = boardReporitory.findTop5ByCategoryOrderByViewCountDesc(category);
+        List<BoardEntity> boardEntityList = boardRepository.findTop5ByCategoryOrderByViewCountDesc(category);
 
-        List<BoardDTO> boardDTOList = boardEntiryList.stream()
+        List<BoardDTO> boardDTOList = boardEntityList.stream()
                 .map(entity -> {
                     BoardDTO dto = new BoardDTO();
                     dto.setIdx(entity.getIdx());
@@ -40,9 +38,9 @@ public class BoardService {
     }
 
     public List<BoardDTO> getBoardlist(String category) {
-        List<BoardEntiry> boardEntiryList = boardReporitory.findByCategory(category);
+        List<BoardEntity> boardEntityList = boardRepository.findByCategory(category);
 
-        List<BoardDTO> boardDTOList = boardEntiryList.stream()
+        List<BoardDTO> boardDTOList = boardEntityList.stream()
                 .map(entity -> {
                     BoardDTO dto = new BoardDTO();
                     dto.setIdx(entity.getIdx());
@@ -59,48 +57,48 @@ public class BoardService {
 
     public boolean setBoardWrite(String category, BoardDTO dto) {
         LocalDate now = LocalDate.now();
-        DateTimeFormatter fomat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String date = now.format(fomat);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = now.format(format);
 
-        BoardEntiry entiry = new BoardEntiry();
+        BoardEntity entity = new BoardEntity();
 
-        entiry.setCategory(category);
-        entiry.setTitle(dto.getTitle());
-        entiry.setContent(dto.getContent());
-        entiry.setId(dto.getId());
-        entiry.setWriter(dto.getWriter());
-        entiry.setRegDate(date);
-        entiry.setViewCount(0);
+        entity.setCategory(category);
+        entity.setTitle(dto.getTitle());
+        entity.setContent(dto.getContent());
+        entity.setId(dto.getId());
+        entity.setWriter(dto.getWriter());
+        entity.setRegDate(date);
+        entity.setViewCount(0);
 
-        boardReporitory.save(entiry);
+        boardRepository.save(entity);
 
         return true;
     }
 
     @Transactional
     public boolean setBoardModify(String category, int idx, BoardDTO dto) {
-        Optional<BoardEntiry> boardOpt = boardReporitory.findByCategoryAndIdx(category, idx);
+        Optional<BoardEntity> boardOpt = boardRepository.findByCategoryAndIdx(category, idx);
 
         if(boardOpt.isEmpty()) {
             return false;
         }
 
-        BoardEntiry boardEntiry = boardOpt.get();
+        BoardEntity boardEntity = boardOpt.get();
 
-        boardEntiry.setTitle(dto.getTitle());
-        boardEntiry.setContent(dto.getContent());
+        boardEntity.setTitle(dto.getTitle());
+        boardEntity.setContent(dto.getContent());
 
         return true;
     }
 
-    public BoardEntiry getBoardDetail(String category, int idx) {
-        Optional<BoardEntiry> boardOpt = boardReporitory.findByCategoryAndIdx(category, idx);
+    public BoardEntity getBoardDetail(String category, int idx) {
+        Optional<BoardEntity> boardOpt = boardRepository.findByCategoryAndIdx(category, idx);
 
-        BoardEntiry boardEntiry = new BoardEntiry();
+        BoardEntity boardEntity = new BoardEntity();
         if(boardOpt.isPresent()) {
-            boardEntiry = boardOpt.get();
+            boardEntity = boardOpt.get();
         }
 
-        return boardEntiry;
+        return boardEntity;
     }
 }

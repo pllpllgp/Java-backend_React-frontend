@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import axios from 'axios';
+import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuthStore} from '../../store/useAuthStore';
@@ -19,13 +19,6 @@ const Login = () => {
 
     });
 
-    const [userForm, setUserForm] = useState<UserDTO> ({
-        id: '',
-        name: '',
-        nick: '',
-
-    });
-
     const login = useAuthStore((state) => state.login);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,14 +32,15 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:8080/api/login', loginData);
+            const res = await axios.post('/api/login', loginData);
             if(res.data.id) {
                 login({
                     id: res.data.id,
                     name: res.data.name,
                     nick: res.data.nick,
 
-                });
+                },
+                res.data.token);
 
                 navigate('/main');
 
@@ -117,7 +111,7 @@ const Login = () => {
                     <li>Database: PostgreSQL</li>
                     <li>ORM: JPA (Hibernate)</li>
                     <li>Routing: React Router v6 (Data API)</li>
-                    <li>Security: SHA-512 Hash</li>
+                    <li>Security: Spring Security (BCrypt)</li>
                 </ul>
             </div>
         </div>

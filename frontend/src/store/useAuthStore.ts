@@ -9,8 +9,9 @@ interface User {
 
 interface AuthState {
     user: User | null;
+    token: String | null;
     isLoggedIn: boolean;
-    login: (userData: User) => void;
+    login: (userData: User, token: String) => void;
     logout: () => void;
 }
 
@@ -18,11 +19,12 @@ export const useAuthStore = create<AuthState>() (
     persist(
         (set) => ({
             user: null,
+            token: null,
             isLoggedIn: false,
 
-            login: (userData) => set({user: userData, isLoggedIn: true}),
+            login: (userData, token) => set({user: userData, token, isLoggedIn: true}),
 
-            logout: () => set({user: null, isLoggedIn: false}),
+            logout: () => set({user: null, token: null, isLoggedIn: false}),
         }),
     {
             name: 'userInfo'

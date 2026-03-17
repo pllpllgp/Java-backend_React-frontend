@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name="boards", schema="board")
-public class BoardEntiry {
+public class BoardEntity {
     @Id
     private int idx;
 

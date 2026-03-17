@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import axios from '../../api/axiosInstance';
 import * as React from "react";
-import {useParams, useNavigate, Link} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 
 interface BoardDTO {
     idx: number;
@@ -21,7 +21,7 @@ const BoardView = () => {
     useEffect(() => {
         const batchBoardView = async() => {
             try {
-                const res = await axios.get(`http://localhost:8080/api/board/${category}/detail/${idx}`);
+                const res = await axios.get(`/api/board/${category}/detail/${idx}`);
 
                 setBoardView(res.data);
 
@@ -54,7 +54,8 @@ const BoardView = () => {
                 {boardView.content}
             </div>
             <div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
-                <button style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
+                <button type="button" onClick={() => navigate(-1)}
+                        style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
                 <button onClick={handleModify} style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정
                 </button>
                 <button style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>

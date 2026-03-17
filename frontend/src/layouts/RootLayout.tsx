@@ -4,7 +4,7 @@ function RootLayout() {
     const loc = useLocation();
 
     const hideNavBar = ["/", "/login", "/signup"];
-    const shouldShowBar = !hideNavBar.includes(location.pathname);
+    const shouldShowBar = !hideNavBar.includes(loc.pathname);
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useParams, useNavigate} from "react-router-dom";
 
@@ -23,7 +23,7 @@ const BoardList = () => {
         const fetchBoardList = async () => {
             try {
                 // 백엔드 API 호출: GET /api/board/{category}/list
-                const response = await axios.get(`http://localhost:8080/api/board/${category}/list`);
+                const response = await axios.get(`/api/board/${category}/list`);
                 setBoardList(response.data); // 가져온 데이터를 State에 저장
                 setLoading(false); // 로딩 끝
 

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import  axios from 'axios';
+import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Signup = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:8080/api/signup', formData)
+            const res = await axios.post('/api/signup', formData)
 
             if(res.data.result) {
                 alert('회원가입 성공');

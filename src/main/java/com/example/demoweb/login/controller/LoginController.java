@@ -1,5 +1,6 @@
 package com.example.demoweb.login.controller;
 
+import com.example.demoweb.config.JwtUtil;
 import com.example.demoweb.login.dto.LoginDTO;
 import com.example.demoweb.login.entity.LoginEntity;
 import com.example.demoweb.login.service.LoginService;
@@ -16,6 +17,9 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping("/signup")
     public Map<String, Object> signup(@RequestBody LoginDTO loginDto) {
@@ -38,6 +42,7 @@ public class LoginController {
             dto.setId(loginInfo.getId());
             dto.setName(loginInfo.getName());
             dto.setNick(loginInfo.getNick());
+            dto.setToken(jwtUtil.generateToken(loginInfo.getId()));
 
         }
 
