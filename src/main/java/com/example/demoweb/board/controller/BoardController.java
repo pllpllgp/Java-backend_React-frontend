@@ -92,7 +92,7 @@ public class BoardController {
     @PostMapping("/{category}/comment/insert/{idx}")
     public CommentDTO setCommentWrite(@PathVariable int idx, @RequestBody CommentDTO dto) {
         CommentEntity entity = boardService.setCommentWrite(idx, dto);
-        dto.setCommentId(entity.getCommentId());
+        dto.setCommentIdx(entity.getCommentIdx());
 
         return dto;
     }

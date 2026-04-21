@@ -6,6 +6,7 @@ import {useAuthStore} from "../../store/useAuthStore.ts";
 
 interface BoardDTO {
     idx: number;
+    id: String;
     title: string;
     content: string;
     writer: string;
@@ -14,10 +15,11 @@ interface BoardDTO {
 }
 
 interface CommentDTO {
-    commentId: number;
-    boardId: number;
+    commentIdx: number;
+    boardIdx: number;
     commentContent: string;
     commentWriter: string;
+    commentId: string;
     regDate: string;
 }
 
@@ -31,10 +33,11 @@ const BoardView = () => {
     const [commentList, setcommentList] = useState<CommentDTO[] | null>(null);
 
     const [commentForm, setCommentForm] = useState<CommentDTO>({
-        commentId: 0,
-        boardId: 0,
+        commentIdx: 0,
+        boardIdx: 0,
         commentContent: '',
         commentWriter: '',
+        commentId: '',
         regDate: '',
 
     });
@@ -81,9 +84,10 @@ const BoardView = () => {
     const handleComment = async() => {
         try {
             const postData = {
-                boardId: `${idx}`,
+                boardIdx: `${idx}`,
                 commentContent: commentForm.commentContent,
-                commentWriter: user?.id,
+                commentWriter: user?.nick,
+                commentId: user?.id,
             }
 
             const res = await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
@@ -106,11 +110,13 @@ const BoardView = () => {
                     {boardView.content}
                 </div>
                 <div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
-                    <button type="button" onClick={handleList}
-                            style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
-                    <button onClick={handleModify}
-                            style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정</button>
+                    <button type="button" onClick={handleList} style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
+                    {boardView.id == user?.id && (
+                    <>
+                    <button onClick={handleModify} style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정</button>
                     <button style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>
+                    </>
+                    )}
                 </div>
             </div>
 
@@ -133,9 +139,11 @@ const BoardView = () => {
                                     </span>
                                     </div>
                                     <div>
+                                        {comment.commentId == user?.id && (
                                         <button style={{ background: 'none', border: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '0.85rem' }}>
                                             삭제
                                         </button>
+                                        )}
                                     </div>
                                 </div>
 

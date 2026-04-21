@@ -114,9 +114,10 @@ public class BoardService {
 
         CommentEntity entity = new CommentEntity();
 
-        entity.setBoardId(idx);
+        entity.setBoardIdx(idx);
         entity.setCommentContent(dto.getCommentContent());
         entity.setCommentWriter(dto.getCommentWriter());
+        entity.setCommentId(dto.getCommentId());
         entity.setRegDate(date);
 
         return commentRepository.save(entity);
@@ -124,14 +125,15 @@ public class BoardService {
     }
 
     public List<CommentDTO> getBoardCommentList(int boardId) {
-        List<CommentEntity> commentEntity = commentRepository.findByBoardId(boardId);
+        List<CommentEntity> commentEntity = commentRepository.findByBoardIdx(boardId);
 
         List<CommentDTO> commentDTOList = commentEntity.stream()
                 .map(entity -> {
                     CommentDTO dto = new CommentDTO();
-                    dto.setCommentId(entity.getCommentId());
+                    dto.setCommentIdx(entity.getCommentIdx());
                     dto.setCommentContent(entity.getCommentContent());
                     dto.setCommentWriter(entity.getCommentWriter());
+                    dto.setCommentId(entity.getCommentId());
 
                     return dto;
                 })

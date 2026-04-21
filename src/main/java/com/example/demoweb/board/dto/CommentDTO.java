@@ -7,10 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentDTO {
-    int commentId;
-    int boardId;
+    int commentIdx;
+    int boardIdx;
     String commentContent;
     String commentWriter;
+    String commentId;
     String regDate;
 
 }

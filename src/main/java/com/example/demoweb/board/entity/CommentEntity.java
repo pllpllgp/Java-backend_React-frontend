@@ -11,16 +11,19 @@ import lombok.Setter;
 public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int commentId;
+    int commentIdx;
 
     @Column(nullable = true)
-    int boardId;
+    int boardIdx;
 
     @Column(nullable = true)
     String commentContent;
 
     @Column(nullable = true)
     String commentWriter;
+
+    @Column(nullable = true)
+    String commentId;
 
     @Column(nullable = true)
     String regDate;
