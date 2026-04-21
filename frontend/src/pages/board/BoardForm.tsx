@@ -67,21 +67,24 @@ const BoardForm = () => {
                 writer: user?.nick,
             }
 
+            let boardIdx;
             let result = false;
 
             if(isEditMode) {
                 const res = await axios.post(`/api/board/${category}/modify/${idx}`, postData);
                 result = res.data.success;
+                boardIdx = res.data.idx;
 
             } else {
                 const res = await axios.post(`/api/board/${category}/write`, postData);
                 result = res.data.success;
+                boardIdx = res.data.idx;
 
             }
 
 
             if(result) {
-                navigate(`/board/${category}/list`);
+                navigate(`/board/${category}/detail/`+boardIdx);
             }
 
         } catch (error) {
@@ -99,7 +102,7 @@ const BoardForm = () => {
                     <div style={{marginBottom: '15px'}}>
                         <label style={{display: 'block', marginBottom: '5px'}}>제목</label>
                         <input type="text"
-                               name = "title"
+                               name="title"
                                onChange={handleChange}
                                style={{width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px'}}
                                placeholder="제목을 입력하세요"
@@ -107,7 +110,7 @@ const BoardForm = () => {
                     </div>
                     <div style={{marginBottom: '15px'}}>
                         <label style={{display: 'block', marginBottom: '5px'}}>내용</label>
-                        <textarea name = "content"
+                        <textarea name="content"
                             onChange={handleChange}
                             style={{
                             width: '100%',

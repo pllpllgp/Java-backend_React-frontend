@@ -1,7 +1,9 @@
 package com.example.demoweb.board.controller;
 
 import com.example.demoweb.board.dto.BoardDTO;
+import com.example.demoweb.board.dto.CommentDTO;
 import com.example.demoweb.board.entity.BoardEntity;
+import com.example.demoweb.board.entity.CommentEntity;
 import com.example.demoweb.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +30,12 @@ public class BoardController {
 
     @PostMapping("/{category}/write")
     public Map<String, Object> getBoardWrite(@PathVariable String category, @RequestBody BoardDTO dto) {
-        boolean result = boardService.setBoardWrite(category, dto);
+        BoardEntity saveEntity = boardService.setBoardWrite(category, dto);
 
         Map<String, Object> res = new HashMap<>();
-        if(result) {
+        if(saveEntity != null) {
             res.put("success", true);
+            res.put("idx", saveEntity.getIdx());
 
         } else {
             res.put("success", false);
@@ -49,6 +52,7 @@ public class BoardController {
         Map<String, Object> res = new HashMap<>();
         if(result) {
             res.put("success", true);
+            res.put("idx", idx);
 
         } else {
             res.put("success", false);
@@ -74,6 +78,21 @@ public class BoardController {
             dto.setViewCount(entity.getViewCount());
 
         }
+
+        return dto;
+    }
+
+
+    @GetMapping("/{category}/comment/list/{idx}")
+    public List<CommentDTO> getBoardCommentList(@PathVariable int idx) {
+        return boardService.getBoardCommentList(idx);
+    }
+
+
+    @PostMapping("/{category}/comment/insert/{idx}")
+    public CommentDTO setCommentWrite(@PathVariable int idx, @RequestBody CommentDTO dto) {
+        CommentEntity entity = boardService.setCommentWrite(idx, dto);
+        dto.setCommentId(entity.getCommentId());
 
         return dto;
     }

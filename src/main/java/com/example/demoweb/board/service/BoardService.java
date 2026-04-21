@@ -1,8 +1,11 @@
 package com.example.demoweb.board.service;
 
 import com.example.demoweb.board.dto.BoardDTO;
+import com.example.demoweb.board.dto.CommentDTO;
 import com.example.demoweb.board.entity.BoardEntity;
+import com.example.demoweb.board.entity.CommentEntity;
 import com.example.demoweb.board.repository.BoardRepository;
+import com.example.demoweb.board.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +21,9 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     public List<BoardDTO> getBoardTop5(String category) {
         List<BoardEntity> boardEntityList = boardRepository.findTop5ByCategoryOrderByViewCountDesc(category);
@@ -55,7 +61,7 @@ public class BoardService {
         return boardDTOList;
     }
 
-    public boolean setBoardWrite(String category, BoardDTO dto) {
+    public BoardEntity setBoardWrite(String category, BoardDTO dto) {
         LocalDate now = LocalDate.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String date = now.format(format);
@@ -70,9 +76,8 @@ public class BoardService {
         entity.setRegDate(date);
         entity.setViewCount(0);
 
-        boardRepository.save(entity);
+        return boardRepository.save(entity);
 
-        return true;
     }
 
     @Transactional
@@ -100,5 +105,38 @@ public class BoardService {
         }
 
         return boardEntity;
+    }
+
+    public CommentEntity setCommentWrite(int idx, CommentDTO dto) {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = now.format(format);
+
+        CommentEntity entity = new CommentEntity();
+
+        entity.setBoardId(idx);
+        entity.setCommentContent(dto.getCommentContent());
+        entity.setCommentWriter(dto.getCommentWriter());
+        entity.setRegDate(date);
+
+        return commentRepository.save(entity);
+
+    }
+
+    public List<CommentDTO> getBoardCommentList(int boardId) {
+        List<CommentEntity> commentEntity = commentRepository.findByBoardId(boardId);
+
+        List<CommentDTO> commentDTOList = commentEntity.stream()
+                .map(entity -> {
+                    CommentDTO dto = new CommentDTO();
+                    dto.setCommentId(entity.getCommentId());
+                    dto.setCommentContent(entity.getCommentContent());
+                    dto.setCommentWriter(entity.getCommentWriter());
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        return commentDTOList;
     }
 }

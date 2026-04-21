@@ -90,9 +90,9 @@ const BoardList = () => {
                     </tr>
                 ) : (
                     // map 함수로 반복 렌더링 (JSP의 c:forEach 역할)
-                    boardList.map((board) => (
+                    boardList.map((board, index) => (
                         <tr key={board.idx} style={{borderBottom: '1px solid #eee'}}>
-                            <td style={{padding: '10px'}}>{board.idx}</td>
+                            <td style={{padding: '10px'}}>{boardList.length - index}</td>
                             <td onClick={() => handleDetail(board.idx)}
                                 style={{
                                     padding: '10px',
