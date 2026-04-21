@@ -42,24 +42,25 @@ const BoardView = () => {
 
     });
 
-    useEffect(() => {
-        const batchBoardView = async() => {
-            try {
-                const resBoard = await axios.get(`/api/board/${category}/detail/${idx}`);
+    const fetchData = async () => {
+        try {
+            const resBoard = await axios.get(`/api/board/${category}/detail/${idx}`);
 
-                setBoardView(resBoard.data);
+            setBoardView(resBoard.data);
 
-                const resComment = await axios.get(`/api/board/${category}/comment/list/${idx}`);
+            const resComment = await axios.get(`/api/board/${category}/comment/list/${idx}`);
 
-                setcommentList(resComment.data);
+            setcommentList(resComment.data);
 
-            } catch(error) {
-                console.error("게시글 상세 실패:", error);
+        } catch(error) {
+            console.error("게시글 상세 실패:", error);
 
-            }
         }
 
-        batchBoardView();
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [category, idx]);
 
     if (!boardView) {
@@ -91,6 +92,9 @@ const BoardView = () => {
             }
 
             const res = await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
+
+            fetchData();
+            setCommentForm({...commentForm, commentContent: ''});
         } catch(e) {
 
         }
@@ -161,9 +165,10 @@ const BoardView = () => {
 
                 <div style={{borderTop: '1px solid #eee', paddingTop: '20px'}}>
                     <textarea onChange={handleChange} placeholder="댓글을 입력하세요" name="commentContent"
-                                style={{width: '100%', height: '80px', padding: '10px',
-                                border: '1px solid #ddd', borderRadius: '4px',
-                                resize: 'vertical', boxSizing: 'border-box'}}/>
+                              value={commentForm.commentContent}
+                              style={{width: '100%', height: '80px', padding: '10px',
+                              border: '1px solid #ddd', borderRadius: '4px',
+                              resize: 'vertical', boxSizing: 'border-box'}}/>
                     <div style={{textAlign: 'right', marginTop: '8px'}}>
                         <button onClick={handleComment}
                                     style={{padding: '8px 20px', background: '#007bff',
