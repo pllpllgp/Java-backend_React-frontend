@@ -71,6 +71,27 @@ const BoardView = () => {
         navigate(`/board/${category}/modify/${idx}`);
     };
 
+    const handleBoardDelete = async() => {
+        const isConfirm = window.confirm("게시글을 삭제하시겠습니까?");
+
+        if(isConfirm) {
+            const postData = {
+                idx: `${idx}`,
+                id: user?.id,
+
+            }
+
+            const res = await axios.post(`/api/board/${category}/delete`, postData);
+
+            if(res.status == 200) {
+                navigate(`/board/${category}/list`);
+            } else {
+                window.alert("서버와 통신에 오류가 생겨 잠시 후 다시 시도해주세요.")
+            }
+
+        }
+    };
+
     const handleList = () => {
         navigate(`/board/${category}/list`);
     };
@@ -118,7 +139,7 @@ const BoardView = () => {
                     {boardView.id == user?.id && (
                     <>
                     <button onClick={handleModify} style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정</button>
-                    <button style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>
+                    <button onClick={handleBoardDelete} style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>
                     </>
                     )}
                 </div>

@@ -44,7 +44,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> getBoardlist(String category) {
-        List<BoardEntity> boardEntityList = boardRepository.findByCategory(category);
+        List<BoardEntity> boardEntityList = boardRepository.findByCategoryOrderByRegDateDesc(category);
 
         List<BoardDTO> boardDTOList = boardEntityList.stream()
                 .map(entity -> {
@@ -94,6 +94,14 @@ public class BoardService {
         boardEntity.setContent(dto.getContent());
 
         return true;
+    }
+
+    @Transactional
+    public void setBoardDelete(BoardDTO dto) {
+        int idx = dto.getIdx();
+        String id = dto.getId();
+
+        boardRepository.deleteByIdxAndId(idx, id);
     }
 
     public BoardEntity getBoardDetail(String category, int idx) {

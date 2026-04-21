@@ -1,5 +1,6 @@
 package com.example.demoweb.board.repository;
 
+import com.example.demoweb.board.dto.BoardDTO;
 import com.example.demoweb.board.entity.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,10 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
     List<BoardEntity> findTop5ByCategoryOrderByViewCountDesc(String category);
 
-    List<BoardEntity> findByCategory(String category);
+    List<BoardEntity> findByCategoryOrderByRegDateDesc(String category);
 
     Optional<BoardEntity> findByCategoryAndIdx(String category, int idx);
+
+    void deleteByIdxAndId(int idx, String id);
 
 }

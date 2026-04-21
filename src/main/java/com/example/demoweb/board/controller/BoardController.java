@@ -6,11 +6,13 @@ import com.example.demoweb.board.entity.BoardEntity;
 import com.example.demoweb.board.entity.CommentEntity;
 import com.example.demoweb.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/board")
@@ -60,6 +62,11 @@ public class BoardController {
         }
 
         return res;
+    }
+
+    @PostMapping("/{category}/delete")
+    public void setBoardDelete(@RequestBody BoardDTO dto) {
+        boardService.setBoardDelete(dto);
     }
 
     @GetMapping("/{category}/detail/{idx}")
