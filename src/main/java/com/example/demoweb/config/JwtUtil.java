@@ -20,10 +20,12 @@ public class JwtUtil {
 
 	// 토큰 발급
 	public String generateToken(String id) {
-		return Jwts.builder()                                                                                                                                                                   .subject(id)
+		return Jwts.builder()
+				.subject(id)
 				.issuedAt(new Date())
 				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1시간
-				.signWith(getKey())                                                                                                                                                                 .compact();
+				.signWith(getKey())
+				.compact();
 	}
 
 	// 토큰에서 ID 추출

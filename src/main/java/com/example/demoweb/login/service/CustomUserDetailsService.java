@@ -20,7 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         LoginEntity user = loginRepository.findById(id)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자 없음: " + id));
 
-        return User.builder()                                                                                                                                                                   .username(user.getId())
+        return User.builder()
+                .username(user.getId())
                 .password(user.getPassword())
                 .roles("USER")
                 .build();
