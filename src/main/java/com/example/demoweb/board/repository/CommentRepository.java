@@ -10,4 +10,8 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<CommentEntity, Integer> {
     List<CommentEntity> findByBoardIdx(int boardIdx);
+
+    void deleteByBoardIdx(int idx);
+
+    void deleteByCommentIdxAndCommentId(int commentIdx, String commentId);
 }

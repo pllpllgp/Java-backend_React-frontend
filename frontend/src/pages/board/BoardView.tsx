@@ -121,6 +121,25 @@ const BoardView = () => {
         }
     }
 
+    const handleDeleteComment = async(idx: number) => {
+        const isConfirm = window.confirm("게시글을 삭제하시겠습니까?");
+
+        if(isConfirm) {
+            try {
+                const postData = {
+                    commentIdx: idx,
+                    commentId: user?.id,
+                }
+
+                const res = await axios.post(`/api/board/${category}/comment/delete`, postData);
+                fetchData();
+
+            } catch(e) {
+
+            }
+        }
+    }
+
     return (
         <div style={{maxWidth: '800px', margin: '0 auto'}}>
 
@@ -153,7 +172,7 @@ const BoardView = () => {
                 <div style={{ marginBottom: '30px' }}>
                     {commentList && commentList.length > 0 ? (
                         commentList.map((comment) => (
-                            <div key={comment.commentId} style={{ borderBottom: '1px solid #eee', padding: '15px 0' }}>
+                            <div key={comment.commentIdx} style={{ borderBottom: '1px solid #eee', padding: '15px 0' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
                                     <div>
                                     <span style={{ fontWeight: 'bold', marginRight: '10px', fontSize: '0.95rem' }}>
@@ -165,7 +184,8 @@ const BoardView = () => {
                                     </div>
                                     <div>
                                         {comment.commentId == user?.id && (
-                                        <button style={{ background: 'none', border: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '0.85rem' }}>
+                                        <button onClick={() => handleDeleteComment(comment.commentIdx)}
+                                                style={{ background: 'none', border: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '0.85rem' }}>
                                             삭제
                                         </button>
                                         )}

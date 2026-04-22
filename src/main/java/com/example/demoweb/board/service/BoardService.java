@@ -102,6 +102,7 @@ public class BoardService {
         String id = dto.getId();
 
         boardRepository.deleteByIdxAndId(idx, id);
+        commentRepository.deleteByBoardIdx(idx);
     }
 
     public BoardEntity getBoardDetail(String category, int idx) {
@@ -149,4 +150,13 @@ public class BoardService {
 
         return commentDTOList;
     }
+
+    @Transactional
+    public void setCommentDelete(CommentDTO dto) {
+        int commentIdx = dto.getCommentIdx();
+        String commentId = dto.getCommentId();
+
+        commentRepository.deleteByCommentIdxAndCommentId(commentIdx, commentId);
+    }
+
 }

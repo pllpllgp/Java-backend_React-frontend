@@ -104,4 +104,9 @@ public class BoardController {
         return dto;
     }
 
+    @PostMapping("/{category}/comment/delete")
+    public void setCommentDelete(@RequestBody CommentDTO dto) {
+        boardService.setCommentDelete(dto);
+    }
+
 }
