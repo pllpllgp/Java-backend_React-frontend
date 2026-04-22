@@ -14,31 +14,31 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.OPTIONS,
-                                   "/**").permitAll()
-                    .requestMatchers("/api/login",
-                                     "/api/signup").permitAll()
-                    .requestMatchers("/",
-                                     "/index.html",
-                                     "/static/**",
-                                     "/*.js",
-                                     "/*.css",
-                                     "/*.ico",
-                                     "/*.png").permitAll()
-                    .requestMatchers("/api/**").authenticated()
-                    .anyRequest().permitAll())
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.authorizeHttpRequests(auth -> auth
+					.requestMatchers(HttpMethod.OPTIONS,
+								   "/**").permitAll()
+					.requestMatchers("/api/login",
+									 "/api/signup").permitAll()
+					.requestMatchers("/",
+									 "/index.html",
+									 "/static/**",
+									 "/*.js",
+									 "/*.css",
+									 "/*.ico",
+									 "/*.png").permitAll()
+					.requestMatchers("/api/**").authenticated()
+					.anyRequest().permitAll())
+			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }

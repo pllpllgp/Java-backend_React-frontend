@@ -10,12 +10,12 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
-    List<BoardEntity> findTop5ByCategoryOrderByViewCountDesc(String category);
+	List<BoardEntity> findTop5ByCategoryOrderByViewCountDesc(String category);
 
-    List<BoardEntity> findByCategoryOrderByRegDateDesc(String category);
+	List<BoardEntity> findByCategoryOrderByRegDateDesc(String category);
 
-    Optional<BoardEntity> findByCategoryAndIdx(String category, int idx);
+	Optional<BoardEntity> findByCategoryAndIdx(String category, int idx);
 
-    void deleteByIdxAndId(int idx, String id);
+	void deleteByIdxAndId(int idx, String id);
 
 }

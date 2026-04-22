@@ -10,18 +10,18 @@ import RootLayout from "./layouts/RootLayout.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <RootLayout />,
-        children: [
-            {index: true, element: <Navigate to="login" replace /> },
-            {path: "login", element: <Login /> },
-            {path: "signup", element: <Signup /> },
-            {path: "main", element: <ProtectedRoute><Main /></ProtectedRoute> },
-            {path: "board/:category/list", element: <ProtectedRoute><BoarList /></ProtectedRoute> },
-            {path: "board/:category/form", element: <ProtectedRoute><BoarForm /></ProtectedRoute> },
-            {path: "board/:category/detail/:idx", element: <ProtectedRoute><BoarView /></ProtectedRoute> },
-            {path: "board/:category/modify/:idx", element: <ProtectedRoute><BoarForm /></ProtectedRoute> },
-        ],
-    },
+	{
+		path: "/",
+		element: <RootLayout />,
+		children: [
+			{index: true, element: <Navigate to="login" replace /> },
+			{path: "login", element: <Login /> },
+			{path: "signup", element: <Signup /> },
+			{path: "main", element: <ProtectedRoute><Main /></ProtectedRoute> },
+			{path: "board/:category/list", element: <ProtectedRoute><BoarList /></ProtectedRoute> },
+			{path: "board/:category/form", element: <ProtectedRoute><BoarForm /></ProtectedRoute> },
+			{path: "board/:category/detail/:idx", element: <ProtectedRoute><BoarView /></ProtectedRoute> },
+			{path: "board/:category/modify/:idx", element: <ProtectedRoute><BoarForm /></ProtectedRoute> },
+		],
+	},
 ]);

@@ -15,37 +15,37 @@ import java.util.Map;
 @RequestMapping("/api")
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
+	@Autowired
+	private LoginService loginService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+	@Autowired
+	private JwtUtil jwtUtil;
 
-    @PostMapping("/signup")
-    public Map<String, Object> signup(@RequestBody LoginDTO loginDto) {
-        boolean result = loginService.signUp(loginDto);
+	@PostMapping("/signup")
+	public Map<String, Object> signup(@RequestBody LoginDTO loginDto) {
+		boolean result = loginService.signUp(loginDto);
 
-        Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>();
 
-        response.put("result", result);
-        return response;
+		response.put("result", result);
+		return response;
 
-    }
+	}
 
-    @PostMapping("/login")
-    public LoginDTO login(@RequestBody LoginDTO loginDto) {
-        LoginEntity loginInfo = loginService.loginCheck(loginDto.getId(), loginDto.getPassword());
+	@PostMapping("/login")
+	public LoginDTO login(@RequestBody LoginDTO loginDto) {
+		LoginEntity loginInfo = loginService.loginCheck(loginDto.getId(), loginDto.getPassword());
 
-        LoginDTO dto = new LoginDTO();
+		LoginDTO dto = new LoginDTO();
 
-        if(StringUtils.hasText(loginInfo.getId())) {
-            dto.setId(loginInfo.getId());
-            dto.setName(loginInfo.getName());
-            dto.setNick(loginInfo.getNick());
-            dto.setToken(jwtUtil.generateToken(loginInfo.getId()));
+		if(StringUtils.hasText(loginInfo.getId())) {
+			dto.setId(loginInfo.getId());
+			dto.setName(loginInfo.getName());
+			dto.setNick(loginInfo.getNick());
+			dto.setToken(jwtUtil.generateToken(loginInfo.getId()));
 
-        }
+		}
 
-        return dto;
-    }
+		return dto;
+	}
 }

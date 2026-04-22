@@ -11,35 +11,35 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    private String secret;
+	@Value("${jwt.secret}")
+	private String secret;
 
-    private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
-    }
+	private SecretKey getKey() {
+		return Keys.hmacShaKeyFor(secret.getBytes());
+	}
 
-    // 토큰 발급
-    public String generateToken(String id) {
-        return Jwts.builder()                                                                                                                                                                   .subject(id)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1시간
-                .signWith(getKey())                                                                                                                                                                 .compact();
-    }
+	// 토큰 발급
+	public String generateToken(String id) {
+		return Jwts.builder()                                                                                                                                                                   .subject(id)
+				.issuedAt(new Date())
+				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1시간
+				.signWith(getKey())                                                                                                                                                                 .compact();
+	}
 
-    // 토큰에서 ID 추출
-    public String extractId(String token) {
-        return Jwts.parser().verifyWith(getKey()).build()
-                .parseSignedClaims(token).getPayload().getSubject();
-    }
+	// 토큰에서 ID 추출
+	public String extractId(String token) {
+		return Jwts.parser().verifyWith(getKey()).build()
+				.parseSignedClaims(token).getPayload().getSubject();
+	}
 
-    // 토큰 유효성 검사
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+	// 토큰 유효성 검사
+	public boolean validateToken(String token) {
+		try {
+			Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

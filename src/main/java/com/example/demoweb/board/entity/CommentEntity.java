@@ -9,22 +9,22 @@ import lombok.Setter;
 @Setter
 @Table(name="comments", schema="board")
 public class CommentEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int commentIdx;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int commentIdx;
 
-    @Column(nullable = true)
-    int boardIdx;
+	@Column(nullable = true)
+	int boardIdx;
 
-    @Column(nullable = true)
-    String commentContent;
+	@Column(nullable = true)
+	String commentContent;
 
-    @Column(nullable = true)
-    String commentWriter;
+	@Column(nullable = true)
+	String commentWriter;
 
-    @Column(nullable = true)
-    String commentId;
+	@Column(nullable = true)
+	String commentId;
 
-    @Column(nullable = true)
-    String regDate;
+	@Column(nullable = true)
+	String regDate;
 }

@@ -4,7 +4,7 @@ import {useAuthStore} from "../store/useAuthStore.ts";
 function RootLayout() {
 	const user = useAuthStore((state) => state.user);
 	const logout = useAuthStore((state) => state.logout);
-    const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const loc = useLocation();
 
@@ -14,12 +14,12 @@ function RootLayout() {
 	const handleLogout = () => {
 		const isConfirm = confirm("로그아웃 하시겠습니까?");
 
-        if(isConfirm) {
-            logout();
-            window.alert("로그아웃 되었습니다.");
-            navigate("/login");
+		if(isConfirm) {
+			logout();
+			window.alert("로그아웃 되었습니다.");
+			navigate("/login");
 
-        }
+		}
 	}
 
 	return (
