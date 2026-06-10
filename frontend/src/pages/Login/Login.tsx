@@ -4,13 +4,6 @@ import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuthStore} from '../../store/useAuthStore';
 
-interface UserDTO {
-	id: string;
-	name: string;
-	nick: string;
-
-}
-
 const Login = () => {
 	const navigate = useNavigate();
 	const [loginData, setLoginData] = useState({

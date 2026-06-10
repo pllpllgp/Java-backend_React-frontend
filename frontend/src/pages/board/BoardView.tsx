@@ -6,7 +6,7 @@ import {useAuthStore} from "../../store/useAuthStore.ts";
 
 interface BoardDTO {
 	idx: number;
-	id: String;
+	id: string;
 	title: string;
 	content: string;
 	writer: string;
@@ -112,12 +112,12 @@ const BoardView = () => {
 				commentId: user?.id,
 			}
 
-			const res = await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
+			await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
 
 			fetchData();
 			setCommentForm({...commentForm, commentContent: ''});
 		} catch(e) {
-
+			console.log("에러: "+e);
 		}
 	}
 
@@ -131,11 +131,11 @@ const BoardView = () => {
 					commentId: user?.id,
 				}
 
-				const res = await axios.post(`/api/board/${category}/comment/delete`, postData);
+				await axios.post(`/api/board/${category}/comment/delete`, postData);
 				fetchData();
 
 			} catch(e) {
-
+				console.log("에러: "+e);
 			}
 		}
 	}
