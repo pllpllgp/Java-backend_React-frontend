@@ -6,7 +6,6 @@ COPY . .
 RUN chmod +x ./gradlew
 RUN ./gradlew clean bootJar -x test
 
-
 FROM azul/zulu-openjdk:21
 WORKDIR /demo-web
 
