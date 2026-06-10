@@ -112,6 +112,8 @@ const Login = () => {
 					<li>ORM: JPA (Hibernate)</li>
 					<li>Routing: React Router v6 (Data API)</li>
 					<li>Security: Spring Security (BCrypt)</li>
+					<li><strong>Infrastructure: Docker, Render (PaaS)</strong></li>
+					<li><strong>Database Hosting: Neon (Serverless PostgreSQL)</strong></li>
 				</ul>
 			</div>
 		</div>
