@@ -23,6 +23,7 @@ public class LoginController {
 
 	@PostMapping("/signup")
 	public Map<String, Object> signup(@RequestBody LoginDTO loginDto) {
+		System.out.println("::::::::회원가입시작::::::::::");
 		boolean result = loginService.signUp(loginDto);
 
 		Map<String, Object> response = new HashMap<>();
