@@ -26,7 +26,7 @@ const Login = () => {
 
 		try {
 			//const res = await axios.post('/api/login', loginData);
-			const res = await axios.post('https://backend-server-mmi8.onrender.com/api/login', loginData);
+			const res = await axios.post('/api/login', loginData);
 
 			if(res.data.id) {
 				login({
