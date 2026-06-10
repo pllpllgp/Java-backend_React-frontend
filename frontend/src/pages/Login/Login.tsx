@@ -27,6 +27,7 @@ const Login = () => {
 		try {
 			//const res = await axios.post('/api/login', loginData);
 			const res = await axios.post('https://backend-server-mmi8.onrender.com/api/login', loginData);
+
 			if(res.data.id) {
 				login({
 					id: res.data.id,
@@ -50,8 +51,7 @@ const Login = () => {
 	}
 
 	const handleSignup = () => {
-		//navigate('/signup');
-		navigate('https://backend-server-mmi8.onrender.com/signup');
+		navigate('/signup');
 	}
 
 	return (
