@@ -24,7 +24,7 @@ const Signup = () => {
 
 		try {
 			//const res = await axios.post('/api/signup', formData)
-			const res = await axios.post('https://backend-server-mmi8.onrender.com:10000/api/signup', formData)
+			const res = await axios.post('https://backend-server-mmi8.onrender.com/api/signup', formData)
 
 			if(res.data.result) {
 				alert('회원가입 성공');
