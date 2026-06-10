@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import Login from './pages/Login/Login.tsx';
