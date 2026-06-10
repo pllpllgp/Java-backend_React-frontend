@@ -1,4 +1,3 @@
-import * as React from 'react';
 import axios from '../../api/axiosInstance';
 import {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";

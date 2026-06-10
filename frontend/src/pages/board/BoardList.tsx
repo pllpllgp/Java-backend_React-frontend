@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import axios from '../../api/axiosInstance';
-import * as React from "react";
 import {useParams, useNavigate} from "react-router-dom";
 
 interface BoardDTO {
