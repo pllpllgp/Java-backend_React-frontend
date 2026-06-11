@@ -155,8 +155,13 @@ const BoardView = () => {
 				<div style={{color: '#666', marginBottom: '20px', fontSize: '0.9rem'}}>
 					<span>작성자: {boardView.writer}</span> | <span>작성일: {boardView.regDate}</span>
 				</div>
-				<div style={{minHeight: '400px', lineHeight: '1.6', marginBottom: '30px', whiteSpace: 'pre-wrap'}}>
-					{boardView.content}
+				<div style={{minHeight: '400px', lineHeight: '1.6', marginBottom: '30px'}}>
+					{boardView.content?.split('\n').map((line, index) => (
+						<span key={index}>
+         				{line}
+							<br />
+      					</span>
+					))}
 				</div>
 				<div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
 					<button type="button" onClick={handleList} style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
