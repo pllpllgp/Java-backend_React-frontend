@@ -3,15 +3,16 @@ import {persist} from "zustand/middleware";
 
 interface User {
 	id: string;
-	name: string,
+	name: string;
 	nick: string;
+	grade: number;
 }
 
 interface AuthState {
 	user: User | null;
-	token: String | null;
+	token: string | null;
 	isLoggedIn: boolean;
-	login: (userData: User, token: String) => void;
+	login: (userData: User, token: string) => void;
 	logout: () => void;
 }
 

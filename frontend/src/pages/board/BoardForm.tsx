@@ -35,7 +35,8 @@ const BoardForm = () => {
 		if(isEditMode) {
 			const fetchBoardDetail = async () => {
 				try {
-					const res = await axios.get(`/api/board/${category}/detail/${idx}`);
+					//const res = await axios.post(`/api/board/${category}/detail/${idx}`);
+					const res = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/detail/${idx}`);
 					setBoarForm(res.data);
 
 				} catch(error) {
@@ -71,12 +72,14 @@ const BoardForm = () => {
 			let result = false;
 
 			if(isEditMode) {
-				const res = await axios.post(`/api/board/${category}/modify/${idx}`, postData);
+				//const res = await axios.post(`/api/board/${category}/modify/${idx}`, postData);
+				const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/modify/${idx}`, postData);
 				result = res.data.success;
 				boardIdx = res.data.idx;
 
 			} else {
-				const res = await axios.post(`/api/board/${category}/write`, postData);
+				//const res = await axios.post(`/api/board/${category}/write`, postData);
+				const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/write`, postData);
 				result = res.data.success;
 				boardIdx = res.data.idx;
 

@@ -44,11 +44,13 @@ const BoardView = () => {
 
 	const fetchData = async () => {
 		try {
-			const resBoard = await axios.get(`/api/board/${category}/detail/${idx}`);
+			//const resBoard = await axios.get(`/api/board/${category}/detail/${idx}`);
+			const resBoard = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/detail/${idx}`);
 
 			setBoardView(resBoard.data);
 
-			const resComment = await axios.get(`/api/board/${category}/comment/list/${idx}`);
+			//const resComment = await axios.get(`/api/board/${category}/comment/list/${idx}`);
+			const resComment = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/list/${idx}`);
 
 			setcommentList(resComment.data);
 
@@ -81,7 +83,8 @@ const BoardView = () => {
 
 			}
 
-			const res = await axios.post(`/api/board/${category}/delete`, postData);
+			//const res = await axios.post(`/api/board/${category}/delete`, postData);
+			const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/delete`, postData);
 
 			if(res.status == 200) {
 				navigate(`/board/${category}/list`);
@@ -112,7 +115,8 @@ const BoardView = () => {
 				commentId: user?.id,
 			}
 
-			await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
+			//await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
+			await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/insert/${idx}`, postData);
 
 			fetchData();
 			setCommentForm({...commentForm, commentContent: ''});
@@ -131,7 +135,8 @@ const BoardView = () => {
 					commentId: user?.id,
 				}
 
-				await axios.post(`/api/board/${category}/comment/delete`, postData);
+				//await axios.post(`/api/board/${category}/comment/delete`, postData);
+				await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/delete`, postData);
 				fetchData();
 
 			} catch(e) {
@@ -155,7 +160,7 @@ const BoardView = () => {
 				</div>
 				<div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
 					<button type="button" onClick={handleList} style={{padding: '8px 15px', marginRight: '5px'}}>목록으로</button>
-					{boardView.id == user?.id && (
+					{(boardView.id == user?.id || user?.grade == 1) && (
 					<>
 					<button onClick={handleModify} style={{padding: '8px 15px', marginRight: '5px', background: '#ffc107', border: 'none'}}>수정</button>
 					<button onClick={handleBoardDelete} style={{padding: '8px 15px', background: '#dc3545', color: '#fff', border: 'none'}}>삭제</button>
@@ -183,7 +188,7 @@ const BoardView = () => {
 									</span>
 									</div>
 									<div>
-										{comment.commentId == user?.id && (
+										{(comment.commentId == user?.id || user?.grade == 1) && (
 										<button onClick={() => handleDeleteComment(comment.commentIdx)}
 												style={{ background: 'none', border: 'none', color: '#dc3545', cursor: 'pointer', fontSize: '0.85rem' }}>
 											삭제

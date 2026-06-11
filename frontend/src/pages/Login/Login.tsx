@@ -33,6 +33,7 @@ const Login = () => {
 					id: res.data.id,
 					name: res.data.name,
 					nick: res.data.nick,
+					grade: res.data.grade,
 
 				},
 				res.data.token);

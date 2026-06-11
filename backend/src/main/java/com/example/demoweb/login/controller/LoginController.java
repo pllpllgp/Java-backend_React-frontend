@@ -42,6 +42,7 @@ public class LoginController {
 			dto.setId(loginInfo.getId());
 			dto.setName(loginInfo.getName());
 			dto.setNick(loginInfo.getNick());
+			dto.setGrade(loginInfo.getGrade());
 			dto.setToken(jwtUtil.generateToken(loginInfo.getId()));
 
 		}

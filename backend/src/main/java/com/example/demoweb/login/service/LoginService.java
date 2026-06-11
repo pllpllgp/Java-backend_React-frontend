@@ -28,6 +28,7 @@ public class LoginService {
         entity.setPassword(passwordEncoder.encode(dto.getPassword()));
         entity.setName(dto.getName());
         entity.setNick(dto.getNick());
+        entity.setGrade(3);
 
         loginRepository.save(entity);
 

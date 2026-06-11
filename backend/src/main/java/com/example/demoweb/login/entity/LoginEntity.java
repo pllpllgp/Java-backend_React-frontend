@@ -21,4 +21,7 @@ public class LoginEntity {
     @Column(nullable = false)
     private String nick;
 
+    @Column(nullable = true)
+    private int grade;
+
 }

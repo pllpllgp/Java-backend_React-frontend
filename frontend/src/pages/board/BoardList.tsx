@@ -22,7 +22,8 @@ const BoardList = () => {
 		const fetchBoardList = async () => {
 			try {
 				// 백엔드 API 호출: GET /api/board/{category}/list
-				const response = await axios.get(`/api/board/${category}/list`);
+				//const response = await axios.get(`/api/board/${category}/list`);
+				const response = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/list`);
 				setBoardList(response.data); // 가져온 데이터를 State에 저장
 				setLoading(false); // 로딩 끝
 
