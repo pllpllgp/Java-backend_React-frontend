@@ -155,7 +155,7 @@ const BoardView = () => {
 				<div style={{color: '#666', marginBottom: '20px', fontSize: '0.9rem'}}>
 					<span>작성자: {boardView.writer}</span> | <span>작성일: {boardView.regDate}</span>
 				</div>
-				<div style={{minHeight: '400px', lineHeight: '1.6', marginBottom: '30px'}}>
+				<div style={{minHeight: '400px', lineHeight: '1.6', marginBottom: '30px', whiteSpace: 'pre-wrap'}}>
 					{boardView.content}
 				</div>
 				<div style={{borderTop: '1px solid #ddd', paddingTop: '20px', textAlign: 'right'}}>
