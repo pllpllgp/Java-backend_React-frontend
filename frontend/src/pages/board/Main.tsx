@@ -94,7 +94,7 @@ const Main = () => {
 
 				<div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '20px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
 					<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '2px solid #28a745', paddingBottom: '10px' }}>
-						<h3 style={{ margin: 0, fontSize: '1.2rem' }}>💬 음악 게시판</h3>
+						<h3 style={{ margin: 0, fontSize: '1.2rem' }}>🎵 음악 게시판</h3>
 						<button onClick={() => navigate(`/board/music/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
