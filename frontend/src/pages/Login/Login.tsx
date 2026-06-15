@@ -105,7 +105,7 @@ const Login = () => {
 						textAlign: 'left',
 						lineHeight: '1.5'
 					}}>
-						<strong>서버 준비 중...</strong> 잠시 후 이용 가능합니다.
+						<strong>서버 준비 중 입니다.</strong> 잠시 후 이용 가능합니다.
 					</div>
 				) : (
 					<div style={{
@@ -118,7 +118,7 @@ const Login = () => {
 						textAlign: 'left',
 						lineHeight: '1.5'
 					}}>
-						<strong>서버 준비 완료!</strong> 로그인하실 수 있습니다.
+						로그인하실 수 있습니다.
 					</div>
 				)}
 
