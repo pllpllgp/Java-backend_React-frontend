@@ -3,6 +3,9 @@ import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 
+const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
+// //const SERVER_BASE_URL = '';
+
 const Signup = () => {
 	const navigate = useNavigate();
 	const [formData, setFormData] = useState({
@@ -27,8 +30,7 @@ const Signup = () => {
 		setIsLoading(true);
 
 		try {
-			//const res = await axios.post('/api/signup', formData)
-			const res = await axios.post('https://backend-server-mmi8.onrender.com/api/signup', formData)
+			const res = await axios.post(`${SERVER_BASE_URL}/api/signup`, formData)
 
 			if(res.data.result) {
 				alert('회원가입 성공');

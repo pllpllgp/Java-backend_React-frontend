@@ -4,6 +4,9 @@ import * as React from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {useAuthStore} from "../../store/useAuthStore.ts";
 
+const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
+//const SERVER_BASE_URL = '';
+
 interface BoardDTO {
 	idx: number;
 	id: string;
@@ -44,13 +47,11 @@ const BoardView = () => {
 
 	const fetchData = async () => {
 		try {
-			//const resBoard = await axios.get(`/api/board/${category}/detail/${idx}`);
-			const resBoard = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/detail/${idx}`);
+			const resBoard = await axios.get(`${SERVER_BASE_URL}/api/board/${category}/detail/${idx}`);
 
 			setBoardView(resBoard.data);
 
-			//const resComment = await axios.get(`/api/board/${category}/comment/list/${idx}`);
-			const resComment = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/list/${idx}`);
+			const resComment = await axios.get(`${SERVER_BASE_URL}/api/board/${category}/comment/list/${idx}`);
 
 			setcommentList(resComment.data);
 
@@ -83,8 +84,7 @@ const BoardView = () => {
 
 			}
 
-			//const res = await axios.post(`/api/board/${category}/delete`, postData);
-			const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/delete`, postData);
+			const res = await axios.post(`${SERVER_BASE_URL}/api/board/${category}/delete`, postData);
 
 			if(res.status == 200) {
 				navigate(`/board/${category}/list`);
@@ -115,8 +115,7 @@ const BoardView = () => {
 				commentId: user?.id,
 			}
 
-			//await axios.post(`/api/board/${category}/comment/insert/${idx}`, postData);
-			await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/insert/${idx}`, postData);
+			await axios.post(`${SERVER_BASE_URL}/api/board/${category}/comment/insert/${idx}`, postData);
 
 			fetchData();
 			setCommentForm({...commentForm, commentContent: ''});
@@ -135,8 +134,7 @@ const BoardView = () => {
 					commentId: user?.id,
 				}
 
-				//await axios.post(`/api/board/${category}/comment/delete`, postData);
-				await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/comment/delete`, postData);
+				await axios.post(`${SERVER_BASE_URL}/api/board/${category}/comment/delete`, postData);
 				fetchData();
 
 			} catch(e) {

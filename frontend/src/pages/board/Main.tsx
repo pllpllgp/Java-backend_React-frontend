@@ -2,6 +2,9 @@ import axios from '../../api/axiosInstance';
 import {useState, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 
+const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
+//const SERVER_BASE_URL = '';
+
 interface BoardDTO {
 	idx: number;
 	title: string;
@@ -24,15 +27,10 @@ const Main = () => {
 					movieRes,
 					musicRes,
 					noticeRes] = await Promise.all([
-						//axios.get(`/api/board/game/top5`).catch(() => ({data: []})),
-						//axios.get(`/api/board/movie/top5`).catch(() => ({data: []})),
-						//axios.get(`/api/board/music/top5`).catch(() => ({data: []})),
-						//axios.get(`/api/board/notice/top5`).catch(() => ({data: []})),
-
-						axios.get(`https://backend-server-mmi8.onrender.com/api/board/game/top5`).catch(() => ({data: []})),
-						axios.get(`https://backend-server-mmi8.onrender.com/api/board/movie/top5`).catch(() => ({data: []})),
-						axios.get(`https://backend-server-mmi8.onrender.com/api/board/music/top5`).catch(() => ({data: []})),
-						axios.get(`https://backend-server-mmi8.onrender.com/api/board/notice/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/game/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/movie/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/music/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/notice/top5`).catch(() => ({data: []})),
 			]);
 
 			setGameBoard(gameRes.data);

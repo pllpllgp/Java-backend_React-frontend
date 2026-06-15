@@ -4,6 +4,9 @@ import * as React from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {useAuthStore} from "../../store/useAuthStore";
 
+const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
+//const SERVER_BASE_URL = '';
+
 interface BoardDTO {
 	id: string;
 	title: string;
@@ -37,8 +40,7 @@ const BoardForm = () => {
 		if(isEditMode) {
 			const fetchBoardDetail = async () => {
 				try {
-					//const res = await axios.post(`/api/board/${category}/detail/${idx}`);
-					const res = await axios.get(`https://backend-server-mmi8.onrender.com/api/board/${category}/detail/${idx}`);
+					const res = await axios.get(`${SERVER_BASE_URL}/api/board/${category}/detail/${idx}`);
 					setBoarForm(res.data);
 
 				} catch(error) {
@@ -76,14 +78,12 @@ const BoardForm = () => {
 			let result = false;
 
 			if(isEditMode) {
-				//const res = await axios.post(`/api/board/${category}/modify/${idx}`, postData);
-				const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/modify/${idx}`, postData);
+				const res = await axios.post(`${SERVER_BASE_URL}/api/board/${category}/modify/${idx}`, postData);
 				result = res.data.success;
 				boardIdx = res.data.idx;
 
 			} else {
-				//const res = await axios.post(`/api/board/${category}/write`, postData);
-				const res = await axios.post(`https://backend-server-mmi8.onrender.com/api/board/${category}/write`, postData);
+				const res = await axios.post(`${SERVER_BASE_URL}/api/board/${category}/write`, postData);
 				result = res.data.success;
 				boardIdx = res.data.idx;
 

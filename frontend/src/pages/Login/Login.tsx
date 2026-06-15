@@ -1,8 +1,11 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuthStore} from '../../store/useAuthStore';
+
+const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
+//const SERVER_BASE_URL = '';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -13,6 +16,13 @@ const Login = () => {
 	});
 
 	const [isLoading, setIsLoading] = useState(false);
+	const [isServerWaking, setIsServerWaking] = useState(true);
+
+	useEffect(() => {
+		axios.get(`${SERVER_BASE_URL}/api/health`)
+			.catch(() => {})
+			.finally(() => setIsServerWaking(false));
+	}, []);
 
 	const login = useAuthStore((state) => state.login);
 
@@ -29,8 +39,7 @@ const Login = () => {
 		setIsLoading(true);
 
 		try {
-			//const res = await axios.post('/api/login', loginData);
-			const res = await axios.post('https://backend-server-mmi8.onrender.com/api/login', loginData);
+			const res = await axios.post(`${SERVER_BASE_URL}/api/login`, loginData);
 
 			if(res.data.id) {
 				login({
@@ -85,18 +94,33 @@ const Login = () => {
 			<div style={{maxWidth: '400px', margin: '50px auto', textAlign: 'center'}}>
 				<h2>로그인</h2>
 
-				<div style={{
-					backgroundColor: '#fff3cd',
-					color: '#856404',
-					padding: '12px',
-					borderRadius: '4px',
-					marginBottom: '20px',
-					fontSize: '0.85rem',
-					textAlign: 'left',
-					lineHeight: '1.5'
-				}}>
-					<strong>안내:</strong> 초기 진입 시 서버가 재기동 되므로 로그인 및 회원가입에 다소 시간이 소요될 수 있습니다.
-				</div>
+				{isServerWaking ? (
+					<div style={{
+						backgroundColor: '#fff3cd',
+						color: '#856404',
+						padding: '12px',
+						borderRadius: '4px',
+						marginBottom: '20px',
+						fontSize: '0.85rem',
+						textAlign: 'left',
+						lineHeight: '1.5'
+					}}>
+						<strong>서버 준비 중...</strong> 잠시 후 이용 가능합니다.
+					</div>
+				) : (
+					<div style={{
+						backgroundColor: '#d1e7dd',
+						color: '#0f5132',
+						padding: '12px',
+						borderRadius: '4px',
+						marginBottom: '20px',
+						fontSize: '0.85rem',
+						textAlign: 'left',
+						lineHeight: '1.5'
+					}}>
+						<strong>서버 준비 완료!</strong> 로그인하실 수 있습니다.
+					</div>
+				)}
 
 				<form onSubmit={handleSubmit}>
 					<div style={{
