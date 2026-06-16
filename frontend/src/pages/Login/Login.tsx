@@ -105,7 +105,7 @@ const Login = () => {
 						textAlign: 'left',
 						lineHeight: '1.5'
 					}}>
-						<strong>서버 준비 중 입니다.</strong> 잠시 후 이용 가능합니다.
+						<strong>서버를 재기동 중 입니다. 재기동은 5~7분 정도 소요됩니다.</strong>
 					</div>
 				)}
 				{serverStatus === 'connected' && (
