@@ -16,12 +16,12 @@ const Login = () => {
 	});
 
 	const [isLoading, setIsLoading] = useState(false);
-	const [isServerWaking, setIsServerWaking] = useState(true);
+	const [serverStatus, setServerStatus] = useState<'checking' | 'connected' | 'error'>('checking');
 
 	useEffect(() => {
 		axios.get(`${SERVER_BASE_URL}/api/health`)
-			.catch(() => {})
-			.finally(() => setIsServerWaking(false));
+			.then(() => setServerStatus('connected'))
+			.catch(() => setServerStatus('error'));
 	}, []);
 
 	const login = useAuthStore((state) => state.login);
@@ -94,7 +94,7 @@ const Login = () => {
 			<div style={{maxWidth: '400px', margin: '50px auto', textAlign: 'center'}}>
 				<h2>로그인</h2>
 
-				{isServerWaking ? (
+				{serverStatus === 'checking' && (
 					<div style={{
 						backgroundColor: '#fff3cd',
 						color: '#856404',
@@ -107,7 +107,8 @@ const Login = () => {
 					}}>
 						<strong>서버 준비 중 입니다.</strong> 잠시 후 이용 가능합니다.
 					</div>
-				) : (
+				)}
+				{serverStatus === 'connected' && (
 					<div style={{
 						backgroundColor: '#d1e7dd',
 						color: '#0f5132',
@@ -119,6 +120,20 @@ const Login = () => {
 						lineHeight: '1.5'
 					}}>
 						로그인하실 수 있습니다.
+					</div>
+				)}
+				{serverStatus === 'error' && (
+					<div style={{
+						backgroundColor: '#f8d7da',
+						color: '#842029',
+						padding: '12px',
+						borderRadius: '4px',
+						marginBottom: '20px',
+						fontSize: '0.85rem',
+						textAlign: 'left',
+						lineHeight: '1.5'
+					}}>
+						<strong>서버에 연결할 수 없습니다.</strong> 잠시 후 다시 시도해주세요.
 					</div>
 				)}
 
@@ -149,27 +164,27 @@ const Login = () => {
 					</div>
 
 					<div style={{marginBottom: '10px'}}>
-						<button type="submit" style={{
+						<button type="submit" disabled={serverStatus !== 'connected'} style={{
 							width: '100%',
 							padding: '10px',
-							backgroundColor: '#000000',
+							backgroundColor: serverStatus !== 'connected' ? '#aaa' : '#000000',
 							color: 'white',
 							border: 'none',
 							boxSizing: 'border-box',
-							cursor: 'pointer'
+							cursor: serverStatus !== 'connected' ? 'not-allowed' : 'pointer'
 						}}>
 							로그인
 						</button>
 					</div>
-					<button type="button" onClick={() => handleSignup()}
+					<button type="button" onClick={() => handleSignup()} disabled={serverStatus !== 'connected'}
 							style={{
 								width: '100%',
 								padding: '10px',
-								backgroundColor: '#007bff',
+								backgroundColor: serverStatus !== 'connected' ? '#aaa' : '#007bff',
 								color: 'white',
 								border: 'none',
 								boxSizing: 'border-box',
-								cursor: 'pointer'
+								cursor: serverStatus !== 'connected' ? 'not-allowed' : 'pointer'
 							}}>
 						회원가입
 					</button>
