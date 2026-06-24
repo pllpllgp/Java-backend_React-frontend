@@ -29,10 +29,10 @@ const Main = () => {
 					movieRes,
 					musicRes,
 					noticeRes] = await Promise.all([
-						axios.get(`${SERVER_BASE_URL}/api/board/game/top5`).catch((e) => { console.error('game top5 실패:', e); return {data: []}; }),
-						axios.get(`${SERVER_BASE_URL}/api/board/movie/top5`).catch((e) => { console.error('movie top5 실패:', e); return {data: []}; }),
-						axios.get(`${SERVER_BASE_URL}/api/board/music/top5`).catch((e) => { console.error('music top5 실패:', e); return {data: []}; }),
-						axios.get(`${SERVER_BASE_URL}/api/board/notice/top5`).catch((e) => { console.error('notice top5 실패:', e); return {data: []}; }),
+						axios.get(`${SERVER_BASE_URL}/api/board/game/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/movie/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/music/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/notice/top5`).catch(() => ({data: []})),
 			]);
 
 			setGameBoard(gameRes.data);
