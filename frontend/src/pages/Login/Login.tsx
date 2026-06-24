@@ -51,13 +51,6 @@ const Login = () => {
 				},
 				res.data.token);
 
-				await Promise.allSettled([
-					axios.get(`${SERVER_BASE_URL}/api/board/game/top5`),
-					axios.get(`${SERVER_BASE_URL}/api/board/movie/top5`),
-					axios.get(`${SERVER_BASE_URL}/api/board/music/top5`),
-					axios.get(`${SERVER_BASE_URL}/api/board/notice/top5`),
-				]);
-
 				navigate('/main');
 
 			} else {
