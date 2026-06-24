@@ -16,7 +16,7 @@ interface BoardDTO {
 const Main = () => {
 	const navigate = useNavigate();
 
-	const [gameBoard, setGameBoard] = useState<BoardDTO[]>([]);
+	const [aniBoard, setAniBoard] = useState<BoardDTO[]>([]);
 	const [movieBoard, setMovieBoard] = useState<BoardDTO[]>([]);
 	const [musicBoard, setMusicBoard] = useState<BoardDTO[]>([]);
 	const [noticeBoard, setNoticeBoard] = useState<BoardDTO[]>([]);
@@ -25,17 +25,17 @@ const Main = () => {
 
 	useEffect(() => {
 		const fetchBoardList = async() => {
-			const [gameRes,
+			const [aniRes,
 					movieRes,
 					musicRes,
 					noticeRes] = await Promise.all([
-						axios.get(`${SERVER_BASE_URL}/api/board/game/top5`).catch(() => ({data: []})),
+						axios.get(`${SERVER_BASE_URL}/api/board/ani/top5`).catch(() => ({data: []})),
 						axios.get(`${SERVER_BASE_URL}/api/board/movie/top5`).catch(() => ({data: []})),
 						axios.get(`${SERVER_BASE_URL}/api/board/music/top5`).catch(() => ({data: []})),
 						axios.get(`${SERVER_BASE_URL}/api/board/notice/top5`).catch(() => ({data: []})),
 			]);
 
-			setGameBoard(gameRes.data);
+			setAniBoard(aniRes.data);
 			setMovieBoard(movieRes.data);
 			setMusicBoard(musicRes.data);
 			setNoticeBoard(noticeRes.data);
@@ -87,16 +87,16 @@ const Main = () => {
 				<div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '20px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
 					<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '2px solid #007bff', paddingBottom: '10px' }}>
 						<h3 style={{ margin: 0, fontSize: '1.2rem' }}>📖 만화 게시판</h3>
-						<button onClick={() => navigate(`/board/game/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
+						<button onClick={() => navigate(`/board/ani/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-						{renderList(gameBoard, 'game')}
+						{renderList(aniBoard, 'ani')}
 					</ul>
 				</div>
 
 				<div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '20px', backgroundColor: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
 					<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '2px solid #dc3545', paddingBottom: '10px' }}>
-						<h3 style={{ margin: 0, fontSize: '1.2rem' }}>🎬 MOVIE 게시판</h3>
+						<h3 style={{ margin: 0, fontSize: '1.2rem' }}>🎬 영화 게시판</h3>
 						<button onClick={() => navigate(`/board/movie/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>

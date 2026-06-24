@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from '../../api/axiosInstance';
 import {useParams, useNavigate} from "react-router-dom";
+import {useAuthStore} from "../../store/useAuthStore.ts";
 
 const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
 //const SERVER_BASE_URL = '';
@@ -14,6 +15,8 @@ interface BoardDTO {
 }
 
 const BoardList = () => {
+	const user = useAuthStore((state) => state.user);
+
 	const {category} = useParams();
 	const navigate = useNavigate();
 
@@ -50,10 +53,18 @@ const BoardList = () => {
 	return (
 		<div style={{padding: '20px', maxWidth: '1000px', margin: '0 auto'}}>
 			<h2 style={{borderBottom: '2px solid #333', paddingBottom: '10px'}}>
-				{category?.toUpperCase()} 게시판
+				{category === 'ani' ? (
+					'만화 게시판'
+				) : category === 'movie' ? (
+					'영화 게시판'
+				) : category === 'music' ? (
+					'음악 게시판'
+				) : (
+					'공지 게시판'
+				)}
 			</h2>
 
-			{/* 글쓰기 버튼 영역 */}
+			{category === 'ani' || category === 'movie' || category === 'music' || (category === 'notice' && user?.grade == 1)? (
 			<div style={{textAlign: 'right', marginBottom: '10px'}}>
 				<button
 					onClick={handleWrite}
@@ -69,6 +80,7 @@ const BoardList = () => {
 					글쓰기
 				</button>
 			</div>
+			) : null}
 
 			{/* 게시글 목록 테이블 */}
 			<table style={{width: '100%', borderCollapse: 'collapse', textAlign: 'center'}}>
