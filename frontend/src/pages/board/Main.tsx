@@ -48,12 +48,16 @@ const Main = () => {
 	}, []);
 
 	const renderList = (boardList: BoardDTO[], category: string) => {
-		if (boardList.length === 0) {
-			return <li style={{ textAlign: 'center', color: '#999', padding: '20px' }}>등록된 글이 없습니다.</li>;
+		if (loading) {
+			return <li style={{ textAlign: 'center', color: '#999', padding: '20px' }}>로딩 중...</li>;
 
 		} else {
-			return boardList.map((dto) => (
-				<li key={dto.idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px dashed #eee' }}>
+			if (boardList.length === 0) {
+				return <li style={{ textAlign: 'center', color: '#999', padding: '20px' }}>등록된 글이 없습니다.</li>;
+
+			} else {
+				return boardList.map((dto) => (
+					<li key={dto.idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px dashed #eee' }}>
 					<span
 						onClick={() => navigate(`/board/${category}/detail/${dto.idx}`)}
 						style={{ cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '75%' }}
@@ -61,11 +65,15 @@ const Main = () => {
 						onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}>
 						{dto.title}
 					</span>
-					<span style={{ color: '#aaa', fontSize: '0.85rem' }}>{dto.regDate}</span>
-				</li>
-			));
+						<span style={{ color: '#aaa', fontSize: '0.85rem' }}>{dto.regDate}</span>
+					</li>
+				));
+
+			}
 
 		}
+
+
 	}
 
 	return (
@@ -82,13 +90,7 @@ const Main = () => {
 						<button onClick={() => navigate(`/board/game/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-						{loading ? (
-							<tr>
-								<td colSpan={5} style={{padding: '20px'}}>로딩 중...</td>
-							</tr>
-						) : (
-							renderList(gameBoard, 'game')
-						)}
+						{renderList(gameBoard, 'game')}
 					</ul>
 				</div>
 
@@ -98,13 +100,7 @@ const Main = () => {
 						<button onClick={() => navigate(`/board/movie/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-						{loading ? (
-							<tr>
-								<td colSpan={5} style={{padding: '20px'}}>로딩 중...</td>
-							</tr>
-						) : (
-							renderList(movieBoard, 'movie')
-						)}
+						{renderList(movieBoard, 'movie')}
 					</ul>
 				</div>
 
@@ -114,13 +110,7 @@ const Main = () => {
 						<button onClick={() => navigate(`/board/music/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-						{loading ? (
-							<tr>
-								<td colSpan={5} style={{padding: '20px'}}>로딩 중...</td>
-							</tr>
-						) : (
-							renderList(musicBoard, 'music')
-						)}
+						{renderList(musicBoard, 'music')}
 					</ul>
 				</div>
 
@@ -130,13 +120,7 @@ const Main = () => {
 						<button onClick={() => navigate(`/board/notice/list`)} style={{ cursor: 'pointer', border: 'none', background: 'none', color: '#888' }}>더보기 +</button>
 					</div>
 					<ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-						{loading ? (
-							<tr>
-								<td colSpan={5} style={{padding: '20px'}}>로딩 중...</td>
-							</tr>
-						) : (
-							renderList(noticeBoard, 'notice')
-						)}
+						{renderList(noticeBoard, 'notice')}
 					</ul>
 				</div>
 
