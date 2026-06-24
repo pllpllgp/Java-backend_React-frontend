@@ -54,13 +54,13 @@ const BoardList = () => {
 		<div style={{padding: '20px', maxWidth: '1000px', margin: '0 auto'}}>
 			<h2 style={{borderBottom: '2px solid #333', paddingBottom: '10px'}}>
 				{category === 'ani' ? (
-					'만화 게시판'
+					'📖 만화 게시판'
 				) : category === 'movie' ? (
-					'영화 게시판'
+					'🎬 영화 게시판'
 				) : category === 'music' ? (
-					'음악 게시판'
+					'🎵 음악 게시판'
 				) : (
-					'공지 게시판'
+					'📢 공지 게시판'
 				)}
 			</h2>
 
