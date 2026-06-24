@@ -47,7 +47,7 @@ function RootLayout() {
 
 					<div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
 						<Link to="/main" style={linkStyle}>메인</Link>
-						<Link to="/board/game/list" style={linkStyle}>게임 게시판</Link>
+						<Link to="/board/ani/list" style={linkStyle}>만화 게시판</Link>
 						<Link to="/board/movie/list" style={linkStyle}>영화 게시판</Link>
 						<Link to="/board/music/list" style={linkStyle}>음악 게시판</Link>
 						<Link to="/board/notice/list" style={linkStyle}>공지 게시판</Link>
