@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
-	List<BoardEntity> findTop5ByCategoryOrderByViewCountDesc(String category);
+	List<BoardEntity> findTop5ByCategoryOrderByRegDateDesc(String category);
 
 	List<BoardEntity> findByCategoryOrderByRegDateDesc(String category);
 

@@ -26,7 +26,7 @@ public class BoardService {
 	private CommentRepository commentRepository;
 
 	public List<BoardDTO> getBoardTop5(String category) {
-		List<BoardEntity> boardEntityList = boardRepository.findTop5ByCategoryOrderByViewCountDesc(category);
+		List<BoardEntity> boardEntityList = boardRepository.findTop5ByCategoryOrderByRegDateDesc(category);
 
 		List<BoardDTO> boardDTOList = boardEntityList.stream()
 				.map(entity -> {
