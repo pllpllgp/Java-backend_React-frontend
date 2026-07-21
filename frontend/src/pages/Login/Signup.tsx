@@ -3,8 +3,7 @@ import axios from '../../api/axiosInstance';
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
 
-const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
-// //const SERVER_BASE_URL = '';
+const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const Signup = () => {
 	const navigate = useNavigate();

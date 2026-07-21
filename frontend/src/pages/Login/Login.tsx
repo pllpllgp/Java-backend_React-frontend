@@ -4,8 +4,7 @@ import * as React from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuthStore} from '../../store/useAuthStore';
 
-const SERVER_BASE_URL = 'https://backend-server-mmi8.onrender.com';
-//const SERVER_BASE_URL = '';
+const SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const Login = () => {
 	const navigate = useNavigate();
