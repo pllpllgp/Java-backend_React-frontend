@@ -93,49 +93,6 @@ const Login = () => {
 			<div style={{maxWidth: '400px', margin: '50px auto', textAlign: 'center'}}>
 				<h2>로그인</h2>
 
-				{serverStatus === 'checking' && (
-					<div style={{
-						backgroundColor: '#fff3cd',
-						color: '#856404',
-						padding: '12px',
-						borderRadius: '4px',
-						marginBottom: '20px',
-						fontSize: '0.85rem',
-						textAlign: 'left',
-						lineHeight: '1.5'
-					}}>
-						<strong>서버를 재기동 중 입니다. 재기동은 5~7분 정도 소요됩니다.</strong>
-					</div>
-				)}
-				{serverStatus === 'connected' && (
-					<div style={{
-						backgroundColor: '#d1e7dd',
-						color: '#0f5132',
-						padding: '12px',
-						borderRadius: '4px',
-						marginBottom: '20px',
-						fontSize: '0.85rem',
-						textAlign: 'left',
-						lineHeight: '1.5'
-					}}>
-						로그인하실 수 있습니다.
-					</div>
-				)}
-				{serverStatus === 'error' && (
-					<div style={{
-						backgroundColor: '#f8d7da',
-						color: '#842029',
-						padding: '12px',
-						borderRadius: '4px',
-						marginBottom: '20px',
-						fontSize: '0.85rem',
-						textAlign: 'left',
-						lineHeight: '1.5'
-					}}>
-						<strong>서버에 연결할 수 없습니다.</strong> 잠시 후 다시 시도해주세요.
-					</div>
-				)}
-
 				<form onSubmit={handleSubmit}>
 					<div style={{
 						textAlign: 'right',
@@ -143,7 +100,6 @@ const Login = () => {
 						color: '#666',
 						marginBottom: '5px'
 					}}>
-						Test ID: <strong>test</strong> / Password: <strong>123</strong>
 					</div>
 
 					<div style={{marginBottom: '10px'}}>
